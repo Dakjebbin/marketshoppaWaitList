@@ -4,6 +4,7 @@ import Hero from './Hero'
 import Community from './Community'
 import Why from './Why'
 import Wait from './Wait'
+import Slots from './Slots'
 
 const Waitlist = () => {
   return (
@@ -11,6 +12,7 @@ const Waitlist = () => {
         <Header/>
         <Hero/>
         <Community/>
+        <Slots/>
         <Why/>
         <Wait/>
     </div>
