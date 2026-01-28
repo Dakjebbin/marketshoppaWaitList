@@ -4,7 +4,7 @@ import { motion } from "motion/react"; //eslint-disable-line
 
 const Why = () => {
   return (
-    <section className="w-[92%] m-auto bg-[#f3eb9f66] max-w-300 mt-20 rounded-4xl sm:px-14 px-8 py-12 flex xl:flex-row flex-col gap-14">
+    <section id="howitworks" className="w-[92%] m-auto bg-[#f3eb9f66] max-w-300 mt-20 rounded-4xl sm:px-14 px-8 py-12 flex xl:flex-row flex-col gap-14">
       <motion.div 
       initial={{ opacity: 0, x: -50 }}
       whileInView={{ opacity: 1, x: 0 }}

@@ -46,12 +46,17 @@ const Hero = () => {
              animate={{ opacity: 1, y: 0 }}
              transition={{ duration: 0.8 }}
             className="flex items-center mt-9 gap-5">
+              <a href="#waitlist">
               <button className=" rounded-full cursor-pointer font-semibold transition-all duration-300 flex items-center justify-center gap-1 md:gap-2 bg-[#3ea40b] text-white hover:bg-opacity-90 shadow-lg shadow-green-50 px-4 md:px-8 py-4 text-sm md:text-lg">
                 Join the waitlist <FaChevronRight size={13} />
               </button>
+              </a>
+
+              <a href="#howitworks">
               <button className="px-4 md:px-8 py-4 cursor-pointer rounded-full font-semibold transition-all duration-300 flex items-center justify-center gap-1 md:gap-2 text-[#3ea40b] hover:bg-[#e8f5e2] text-sm md:text-base">
                 How it works
               </button>
+              </a>
             </motion.div>
           </div>
 
