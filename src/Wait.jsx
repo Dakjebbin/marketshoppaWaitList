@@ -1,6 +1,50 @@
 import { motion } from "motion/react"; //eslint-disable-line
+import axios from "axios"
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Wait = () => {
+    const [email, setEmail] = useState("")
+    const [fullName, setFullName] = useState("")
+    const [area, setArea] = useState("")
+    const [loading, setLoading] = useState(false)
+
+    const baseUrl = import.meta.env.VITE_BASE_URL || "/api"
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+try {
+    setLoading(true)
+    const response = await axios.post(`${baseUrl}/auth/waitlist`,{
+        email,
+        fullName,
+        area
+    },{
+        withCredentials:true
+    })
+console.log(response);
+
+
+    if(response.status === 201){
+        toast.success("You have successfully been added to the waitlist")
+        setEmail("")
+        setFullName("")
+        setArea("")
+    }
+
+} catch (error) {
+    if (error instanceof axios.AxiosError) {
+        toast.error(
+           error?.response?.data?.message
+         );
+       } else {
+         toast.error("reg error => ", error.message);
+       }
+}finally{
+    setLoading(false)
+}
+    }
+    
   return (
     <div>
       <section id="waitlist" className="py-32 px-6 bg-white">
@@ -24,7 +68,7 @@ const Wait = () => {
                 your neighborhood.
               </p>
             </motion.div>
-            <form className="bg-[#f3eb9f4d] p-8 md:p-12 rounded-[3.5rem] border border-[#f3eb9f] space-y-6">
+            <form onSubmit={handleSubmit} className="bg-[#f3eb9f4d] p-8 md:p-12 rounded-[3.5rem] border border-[#f3eb9f] space-y-6">
               <div className="grid md:grid-cols-2 gap-6 text-left">
                 <motion.div
                  initial={{ opacity: 0, x: -50 }}
@@ -36,7 +80,9 @@ const Wait = () => {
                     Full Name
                   </label>
                   <input
-                    required=""
+                    required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Ebube Williams"
                     className="w-full px-6 py-4 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#3ea40b] shadow-sm"
                     type="text"
@@ -52,7 +98,9 @@ const Wait = () => {
                     Email Address
                   </label>
                   <input
-                    required=""
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="e.g. ebube@workmail.com"
                     className="w-full px-6 py-4 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#3ea40b] shadow-sm"
                     type="email"
@@ -69,7 +117,8 @@ const Wait = () => {
                   Your Neighborhood (In Port Harcourt)
                 </label>
                 <select
-                  required=""
+                value={area}
+                onChange={(e) => setArea(e.target.value)}
                   className="w-full px-6 py-4 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#3ea40b] shadow-sm appearance-none bg-white"
                 >
                   <option value="">Select your area...</option>
@@ -88,9 +137,10 @@ const Wait = () => {
                transition={{ duration: 1, ease: "easeOut" }}
                viewport={{ once: true, amount: 0.4 }}
                 type="submit"
+                disabled={loading}
                 className="px-8 rounded-full font-bold transition-all duration-300 flex items-center justify-center gap-2 bg-[#3ea40b] text-white hover:shadow-xl hover:scale-105 active:scale-95 shadow-lg shadow-[#3ea40b71] w-full py-5 text-xl"
               >
-                Join the Waitlist
+                {loading ? "Loading..." : "Join the Waitlist"}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -98,9 +148,9 @@ const Wait = () => {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   className="lucide lucide-arrow-right w-6 h-6"
                   aria-hidden="true"
                 >
