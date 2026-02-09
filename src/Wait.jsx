@@ -29,7 +29,7 @@ try {
 
 
     if(response.status === 201){
-        toast.success("You have successfully been added to the waitlist")
+      toast.success("Welcome to MarketShoppa! 🎉 Check your email for your unique referral code and start earning rewards!")
         setEmail("")
         setFullName("")
         setArea("")
