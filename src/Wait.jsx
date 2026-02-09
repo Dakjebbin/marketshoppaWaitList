@@ -7,6 +7,8 @@ const Wait = () => {
     const [email, setEmail] = useState("")
     const [fullName, setFullName] = useState("")
     const [area, setArea] = useState("")
+    const [referredBy, setReferredBy] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [loading, setLoading] = useState(false)
 
     const baseUrl = import.meta.env.VITE_BASE_URL || "/api"
@@ -18,11 +20,12 @@ try {
     const response = await axios.post(`${baseUrl}/auth/waitlist`,{
         email,
         fullName,
-        area
+        area,
+        referredBy,
+        phoneNumber
     },{
         withCredentials:true
     })
-console.log(response);
 
 
     if(response.status === 201){
@@ -30,6 +33,8 @@ console.log(response);
         setEmail("")
         setFullName("")
         setArea("")
+        setPhoneNumber("")
+        setReferredBy("")
     }
 
 } catch (error) {
@@ -104,6 +109,44 @@ console.log(response);
                     placeholder="e.g. ebube@workmail.com"
                     className="w-full px-6 py-4 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#3ea40b] shadow-sm"
                     type="email"
+                  />
+                </motion.div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 text-left">
+                <motion.div
+                 initial={{ opacity: 0, x: -50 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 transition={{ duration: 1, ease: "easeOut" }}
+                 viewport={{ once: true, amount: 0.4 }}
+                className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700 ml-2">
+                    Phone Number
+                  </label>
+                  <input
+                    required
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    placeholder="e.g. +234 (0) 070 008-11"
+                    className="w-full px-6 py-4 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#3ea40b] shadow-sm"
+                    type="tel"
+                  />
+                </motion.div>
+                <motion.div
+                 initial={{ opacity: 0, x: 50 }}
+                 whileInView={{ opacity: 1, x: 0 }}
+                 transition={{ duration: 1, ease: "easeOut" }}
+                 viewport={{ once: true, amount: 0.4 }}
+                 className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700 ml-2">
+                    Referral Code (optional)
+                  </label>
+                  <input
+                    value={referredBy}
+                    onChange={(e) => setReferredBy(e.target.value)}
+                    placeholder="e.g. 3EFEER"
+                    className="w-full px-6 py-4 rounded-2xl border-none outline-none focus:ring-2 focus:ring-[#3ea40b] shadow-sm"
+                    type="text"
                   />
                 </motion.div>
               </div>
